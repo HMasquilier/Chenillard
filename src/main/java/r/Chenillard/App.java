@@ -20,11 +20,13 @@ import tuwien.auto.calimero.process.ProcessCommunicatorImpl;
  *
  */
 public class App 
-{
+{	
+	public static Boolean allume = true;
 	public static Boolean B1 = false;
 	public static Boolean B2 = false;
 	public static Boolean B3 = false;
 	public static Boolean B4 = false;
+	public static long vitesse = 1000;
 	private static long minimumDelay = 500;
 	private static String servAdr = "192.168.1.201";
 	/**
@@ -62,21 +64,42 @@ public class App
 			
 			//Allumer/éteindre
 			ProcessCommunicator pc = new ProcessCommunicatorImpl(knxLink);
+			
+			while (!t.isInterrupted()) {
 		
 			Boolean LED1 = pc.readBool(new GroupAddress("0/1/1"));
 			Boolean LED2 = pc.readBool(new GroupAddress("0/1/2"));
 			Boolean LED3 = pc.readBool(new GroupAddress("0/1/3"));
 			Boolean LED4 = pc.readBool(new GroupAddress("0/1/4"));
 			
-			//Allume LED
-			if (!LED1) {
+			//Gestion chenillard
+			if (allume) {
+			if (LED1) {
+				pc.write(new GroupAddress("0/0/1"),false);
+				pc.write(new GroupAddress("0/0/2"),true);
+			}
+			else if (LED2){
+				pc.write(new GroupAddress("0/0/2"),false);
+				pc.write(new GroupAddress("0/0/3"),true);
+			}
+			else if (LED3) {
+				pc.write(new GroupAddress("0/0/3"),false);
+				pc.write(new GroupAddress("0/0/4"),true);
+			}
+			else {
+				pc.write(new GroupAddress("0/0/4"),false);
 				pc.write(new GroupAddress("0/0/1"),true);
 			}
-			//Eteindre LED
+			}
 			else {
 				pc.write(new GroupAddress("0/0/1"),false);
+				pc.write(new GroupAddress("0/0/2"),false);
+				pc.write(new GroupAddress("0/0/3"),false);
+				pc.write(new GroupAddress("0/0/4"),false);
 			}
-			TimeUnit.SECONDS.sleep(10);
+			
+			TimeUnit.MILLISECONDS.sleep(vitesse);
+			}
 			pc.close();
 			knxLink.close();
 		}
