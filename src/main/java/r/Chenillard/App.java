@@ -56,7 +56,7 @@ public class App
 			t.start();
 			
 			//Listener
-			Listener lis = new Listener(B1,B2,B3,B4);
+			Listener lis = new Listener();
 			knxLink.addLinkListener(lis);
 			
 			
