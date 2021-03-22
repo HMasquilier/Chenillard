@@ -12,13 +12,13 @@ public class Boucle implements Runnable {
 	        	  while (!Thread.currentThread().isInterrupted()){
 	        		  
 	        		  if (App.B1==true) {
-	        			  App.allume = true;
-	        			  System.out.println("Allumage du chenillard");
+	        			  App.allume = !App.allume;
+	        			  if (App.allume == true) System.out.println("Allumage du chenillard");
+	        			  else System.out.println("Extinction du chenillard");
 	        			  App.B1 = false;
 	        		  }
 	        		  if (App.B2==true) {
-	        			  App.allume = false;
-	        			  System.out.println("Extinction du chenillard");
+	        			  App.restart = true;
 	        			  App.B2 = false;
 	        		  }
 	        		  if (App.B3==true) {
