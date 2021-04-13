@@ -26,5 +26,10 @@
       <artifactId>calimero-core</artifactId>
       <version>2.4</version>
     </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-server</artifactId>
+      <version>11.0.2</version>
+    </dependency>
   </dependencies>
 </project>
