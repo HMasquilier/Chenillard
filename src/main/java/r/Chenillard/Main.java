@@ -19,7 +19,7 @@ import tuwien.auto.calimero.process.ProcessCommunicatorImpl;
  * Hello world!
  *
  */
-public class App {
+public class Main {
 	public static Boolean allume = true;
 	public static Boolean restart = false;
 	public static Boolean B1 = false;

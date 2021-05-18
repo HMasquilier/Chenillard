@@ -11,35 +11,35 @@ public class Boucle implements Runnable {
 	          try {
 	        	  while (!Thread.currentThread().isInterrupted()){
 	        		  
-	        		  if (App.B1==true) {
-	        			  App.allume = !App.allume;
-	        			  if (App.allume == true) System.out.println("Allumage du chenillard");
+	        		  if (Main.B1==true) {
+	        			  Main.allume = !Main.allume;
+	        			  if (Main.allume == true) System.out.println("Allumage du chenillard");
 	        			  else System.out.println("Extinction du chenillard");
-	        			  App.B1 = false;
+	        			  Main.B1 = false;
 	        		  }
-	        		  if (App.B2==true) {
-	        			  App.restart = true;
-	        			  App.B2 = false;
+	        		  if (Main.B2==true) {
+	        			  Main.restart = true;
+	        			  Main.B2 = false;
 	        		  }
-	        		  if (App.B3==true) {
-	        			  if (App.vitesse>=500) {
+	        		  if (Main.B3==true) {
+	        			  if (Main.vitesse>=500) {
 	        				  System.out.println("Augmentation de la vitesse");
-	        				  App.vitesse = App.vitesse - 100;
+	        				  Main.vitesse = Main.vitesse - 100;
 	        			  }
 	        			  else {
 	        				  System.out.println("On ne peut pas plus augmenter la vitesse");
 	        			  }
-	        			  App.B3 = false;
+	        			  Main.B3 = false;
 	        		  }
-	        		  if (App.B4==true) {
-	        			  if (App.vitesse<=2000) {
+	        		  if (Main.B4==true) {
+	        			  if (Main.vitesse<=2000) {
 	        				  System.out.println("Réduction de la vitesse");
-	        				  App.vitesse = App.vitesse + 100;
+	        				  Main.vitesse = Main.vitesse + 100;
 	        			  }
 	        			  else {
 	        				  System.out.println("On ne peut pas plus réduire la vitesse");
 	        			  }
-	        			  App.B4 = false;
+	        			  Main.B4 = false;
 	        		  }
 	        		  Thread.sleep(sleepT);
 	        	  }

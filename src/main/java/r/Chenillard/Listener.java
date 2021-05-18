@@ -17,19 +17,19 @@ public void indication(FrameEvent e) {
 	System.out.println("targetadress " + ((CEMILData)e.getFrame()).getDestination());
 	if (((CEMILData)e.getFrame()).getDestination().toString().equals("1/0/1")) {
 		System.out.println("Bouton 1");
-		App.B1=true;
+		Main.B1=true;
 	}
 	if (((CEMILData)e.getFrame()).getDestination().toString().equals("1/0/2")) {
 		System.out.println("Bouton 2");
-		App.B2=true;
+		Main.B2=true;
 	}
 	if (((CEMILData)e.getFrame()).getDestination().toString().equals("1/0/3")) {
 		System.out.println("Bouton 3");
-		App.B3=true;
+		Main.B3=true;
 	}
 	if (((CEMILData)e.getFrame()).getDestination().toString().equals("1/0/4")) {
 		System.out.println("Bouton 4");
-		App.B4=true;
+		Main.B4=true;
 	}
 }
 

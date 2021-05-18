@@ -1,4 +1,4 @@
-package r.Chenillard;
+package App;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +22,7 @@ public class ServerT {
         ServletHolder serHol = ctx.addServlet(ServletContainer.class, "/rest/*");
         serHol.setInitOrder(1);
         serHol.setInitParameter("jersey.config.server.provider.packages", 
-                "com.zetcode.res");
+                "main.java.res");
 
         try {
             server.start();
@@ -30,7 +30,7 @@ public class ServerT {
         } catch (Exception ex) {
             Logger.getLogger(ServerT.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+        	
             server.destroy();
         }
     }
