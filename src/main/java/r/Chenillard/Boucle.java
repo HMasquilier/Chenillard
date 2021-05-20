@@ -13,7 +13,10 @@ public class Boucle implements Runnable {
 	        		  
 	        		  if (Main.B1==true) {
 	        			  Main.allume = !Main.allume;
-	        			  if (Main.allume == true) System.out.println("Allumage du chenillard");
+	        			  if (Main.allume == true) {
+	        				  System.out.println("Allumage du chenillard");
+	        				  Main.restart = true;
+	        			  }
 	        			  else System.out.println("Extinction du chenillard");
 	        			  Main.B1 = false;
 	        		  }

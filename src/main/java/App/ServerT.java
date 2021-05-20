@@ -22,7 +22,7 @@ public class ServerT {
         ServletHolder serHol = ctx.addServlet(ServletContainer.class, "/rest/*");
         serHol.setInitOrder(1);
         serHol.setInitParameter("jersey.config.server.provider.packages", 
-                "main.java.res");
+                "res");
 
         try {
             server.start();

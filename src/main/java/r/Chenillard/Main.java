@@ -88,11 +88,18 @@ public class Main {
 							pc.write(new GroupAddress("0/0/1"), true);
 						}
 					} else {
-						pc.write(new GroupAddress("0/0/1"), false);
+						pc.write(new GroupAddress("0/0/1"), true);
 						pc.write(new GroupAddress("0/0/2"), false);
 						pc.write(new GroupAddress("0/0/3"), false);
 						pc.write(new GroupAddress("0/0/4"), false);
+						restart = false;
 					}
+				}
+				else {
+					pc.write(new GroupAddress("0/0/1"), false);
+					pc.write(new GroupAddress("0/0/2"), false);
+					pc.write(new GroupAddress("0/0/3"), false);
+					pc.write(new GroupAddress("0/0/4"), false);
 				}
 
 				TimeUnit.MILLISECONDS.sleep(vitesse);
@@ -113,6 +120,8 @@ public class Main {
 
 			System.out.println("Error creating KNXnet/IP tunneling link: " + e);
 		}
+		
+		
 
 	}
 }
