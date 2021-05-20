@@ -25,8 +25,8 @@ import tuwien.auto.calimero.process.ProcessCommunicatorImpl;
 public class ServerB {
 	public static class Serveur extends HttpServlet {
 		//DOGET
-		protected void doGet(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
+		@Override
+		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
 			

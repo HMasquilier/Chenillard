@@ -11,38 +11,38 @@ public class Boucle implements Runnable {
 	          try {
 	        	  while (!Thread.currentThread().isInterrupted()){
 	        		  
-	        		  if (Main.B1==true) {
-	        			  Main.allume = !Main.allume;
-	        			  if (Main.allume == true) {
+	        		  if (ServerB.B1==true) {
+	        			  ServerB.allume = !ServerB.allume;
+	        			  if (ServerB.allume == true) {
 	        				  System.out.println("Allumage du chenillard");
-	        				  Main.restart = true;
+	        				  ServerB.restart = true;
 	        			  }
 	        			  else System.out.println("Extinction du chenillard");
-	        			  Main.B1 = false;
+	        			  ServerB.B1 = false;
 	        		  }
-	        		  if (Main.B2==true) {
-	        			  Main.restart = true;
-	        			  Main.B2 = false;
+	        		  if (ServerB.B2==true) {
+	        			  ServerB.restart = true;
+	        			  ServerB.B2 = false;
 	        		  }
-	        		  if (Main.B3==true) {
-	        			  if (Main.vitesse>=500) {
+	        		  if (ServerB.B3==true) {
+	        			  if (ServerB.vitesse>=500) {
 	        				  System.out.println("Augmentation de la vitesse");
-	        				  Main.vitesse = Main.vitesse - 100;
+	        				  ServerB.vitesse = ServerB.vitesse - 100;
 	        			  }
 	        			  else {
 	        				  System.out.println("On ne peut pas plus augmenter la vitesse");
 	        			  }
-	        			  Main.B3 = false;
+	        			  ServerB.B3 = false;
 	        		  }
-	        		  if (Main.B4==true) {
-	        			  if (Main.vitesse<=2000) {
+	        		  if (ServerB.B4==true) {
+	        			  if (ServerB.vitesse<=2000) {
 	        				  System.out.println("Réduction de la vitesse");
-	        				  Main.vitesse = Main.vitesse + 100;
+	        				  ServerB.vitesse = ServerB.vitesse + 100;
 	        			  }
 	        			  else {
 	        				  System.out.println("On ne peut pas plus réduire la vitesse");
 	        			  }
-	        			  Main.B4 = false;
+	        			  ServerB.B4 = false;
 	        		  }
 	        		  Thread.sleep(sleepT);
 	        	  }
