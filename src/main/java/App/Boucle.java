@@ -1,4 +1,4 @@
-package r.Chenillard;
+package App;
 
 public class Boucle implements Runnable {
 	private long sleepT;

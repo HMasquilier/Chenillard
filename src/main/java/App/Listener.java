@@ -1,4 +1,4 @@
-package r.Chenillard;
+package App;
 
 import tuwien.auto.calimero.CloseEvent;
 import tuwien.auto.calimero.FrameEvent;
