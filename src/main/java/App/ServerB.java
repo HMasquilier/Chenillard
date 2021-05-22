@@ -31,7 +31,10 @@ public class ServerB {
 	public static long vitesse = 1000;
 	private static long minimumDelay = 500;
 	public static int index = 0;
-	public static Boolean[][][] pattern = {{{false,false,false,true},{false,false,true,false},{false,true,false,false},{true,false,false,false}}};
+	public static Boolean[][] patternCroissant = {{true,false,false,false},{false,true,false,false},{false,false,true,false},{false,false,false,true}};
+	public static Boolean[][] patternDecroissant = {{false,false,false,true},{false,false,true,false},{false,true,false,false},{true,false,false,false}};
+	public static Boolean[][][] pattern = {patternCroissant,patternDecroissant};
+	public static int counterMax = 4;
 	public static int counter = 0;
 
 	public static class Serveur extends HttpServlet {
@@ -110,7 +113,7 @@ public class ServerB {
 							pc.write(new GroupAddress("0/0/3"), pattern[index][counter][2]);
 							pc.write(new GroupAddress("0/0/4"), pattern[index][counter][3]);
 							counter ++;
-							if (counter == 4) counter = 0;
+							if (counter == counterMax) counter = 0;
 							}
 						else {
 							pc.write(new GroupAddress("0/0/1"), pattern[index][0][0]);
@@ -155,5 +158,11 @@ public class ServerB {
 	}
 
 }
+	public static void patternChange (int newIndex) {
+		if (pattern.length >= newIndex+1) {
+			index = newIndex;
+			counterMax = pattern[index].length;
+		}
+	}
 
 }
