@@ -20,7 +20,7 @@ import tuwien.auto.calimero.link.medium.TPSettings;
 import tuwien.auto.calimero.process.ProcessCommunicator;
 import tuwien.auto.calimero.process.ProcessCommunicatorImpl;
 
-public class ServerB {
+public class KNX {
 	// Données
 	public static Boolean allume = true;
 	public static Boolean restart = false;
@@ -37,16 +37,6 @@ public class ServerB {
 	public static int counterMax = 4;
 	public static int counter = 0;
 
-	public static class Serveur extends HttpServlet {
-		// DOGET
-		@Override
-		protected void doGet(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			response.setContentType("text/html");
-			response.setStatus(HttpServletResponse.SC_OK);
-
-		}
-
 
 		// DONNEES KNX
 		public static String servAdr = "192.168.1.201";
@@ -58,22 +48,10 @@ public class ServerB {
 		private static final InetSocketAddress serverKNX = new InetSocketAddress(servAdr,
 				KNXnetIPConnection.DEFAULT_PORT);
 
-		public static void main(String[] args) throws Exception {
+		public static void GestionKNX() {
 			
 			//CONNEXION SERVEUR
-//			Server server = new Server(8080);
-//			ServletHandler handler = new ServletHandler();
-//			
-//			
-//			handler.addServletWithMapping(Serveur.class, "/onoff");
-//			handler.addServletWithMapping(Serveur.class, "/restart");
-//			handler.addServletWithMapping(Serveur.class, "/accelerer");
-//			handler.addServletWithMapping(Serveur.class, "/ralentir");
-//			
-//			server.setHandler(handler);
-//			
-//			server.start();
-//			server.join();
+			
 			
 			
 			//CONNEXION KNX	
@@ -157,7 +135,7 @@ public class ServerB {
 		}
 	}
 
-}
+
 	public static void patternChange (int newIndex) {
 		if (pattern.length >= newIndex+1) {
 			index = newIndex;

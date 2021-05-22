@@ -11,38 +11,38 @@ public class Boucle implements Runnable {
 	          try {
 	        	  while (!Thread.currentThread().isInterrupted()){
 	        		  
-	        		  if (ServerB.B1==true) {
-	        			  ServerB.allume = !ServerB.allume;
-	        			  if (ServerB.allume == true) {
+	        		  if (KNX.B1==true) {
+	        			  KNX.allume = !KNX.allume;
+	        			  if (KNX.allume == true) {
 	        				  System.out.println("Allumage du chenillard");
-	        				  ServerB.restart = true;
+	        				  KNX.restart = true;
 	        			  }
 	        			  else System.out.println("Extinction du chenillard");
-	        			  ServerB.B1 = false;
+	        			  KNX.B1 = false;
 	        		  }
-	        		  if (ServerB.B2==true) {
-	        			  ServerB.restart = true;
-	        			  ServerB.B2 = false;
+	        		  if (KNX.B2==true) {
+	        			  KNX.restart = true;
+	        			  KNX.B2 = false;
 	        		  }
-	        		  if (ServerB.B3==true) {
-	        			  if (ServerB.vitesse>=500) {
+	        		  if (KNX.B3==true) {
+	        			  if (KNX.vitesse>=500) {
 	        				  System.out.println("Augmentation de la vitesse");
-	        				  ServerB.vitesse = ServerB.vitesse - 100;
+	        				  KNX.vitesse = KNX.vitesse - 100;
 	        			  }
 	        			  else {
 	        				  System.out.println("On ne peut pas plus augmenter la vitesse");
 	        			  }
-	        			  ServerB.B3 = false;
+	        			  KNX.B3 = false;
 	        		  }
-	        		  if (ServerB.B4==true) {
-	        			  if (ServerB.vitesse<=2000) {
+	        		  if (KNX.B4==true) {
+	        			  if (KNX.vitesse<=2000) {
 	        				  System.out.println("Réduction de la vitesse");
-	        				  ServerB.vitesse = ServerB.vitesse + 100;
+	        				  KNX.vitesse = KNX.vitesse + 100;
 	        			  }
 	        			  else {
 	        				  System.out.println("On ne peut pas plus réduire la vitesse");
 	        			  }
-	        			  ServerB.B4 = false;
+	        			  KNX.B4 = false;
 	        		  }
 	        		  Thread.sleep(sleepT);
 	        	  }
