@@ -30,6 +30,9 @@ public class ServerB {
 	public static Boolean B4 = false;
 	public static long vitesse = 1000;
 	private static long minimumDelay = 500;
+	public static int index = 0;
+	public static Boolean[][][] pattern = {{{false,false,false,true},{false,false,true,false},{false,true,false,false},{true,false,false,false}}};
+	public static int counter = 0;
 
 	public static class Serveur extends HttpServlet {
 		// DOGET
@@ -55,24 +58,24 @@ public class ServerB {
 		public static void main(String[] args) throws Exception {
 			
 			//CONNEXION SERVEUR
-			Server server = new Server(8080);
-			ServletHandler handler = new ServletHandler();
-			
-			
-			handler.addServletWithMapping(Serveur.class, "/onoff");
-			handler.addServletWithMapping(Serveur.class, "/restart");
-			handler.addServletWithMapping(Serveur.class, "/accelerer");
-			handler.addServletWithMapping(Serveur.class, "/ralentir");
-			
-			server.setHandler(handler);
-			
-			server.start();
-			server.join();
+//			Server server = new Server(8080);
+//			ServletHandler handler = new ServletHandler();
+//			
+//			
+//			handler.addServletWithMapping(Serveur.class, "/onoff");
+//			handler.addServletWithMapping(Serveur.class, "/restart");
+//			handler.addServletWithMapping(Serveur.class, "/accelerer");
+//			handler.addServletWithMapping(Serveur.class, "/ralentir");
+//			
+//			server.setHandler(handler);
+//			
+//			server.start();
+//			server.join();
 			
 			
 			//CONNEXION KNX	
 
-			System.out.println("Establish a tunneling connection to the KNXnet/IP server " + server);
+			//System.out.println("Establish a tunneling connection to the KNXnet/IP server " + server);
 			KNXNetworkLinkIP knxLink;
 
 			// KNXNetworkLink is the base interface of a Calimero link to a KNX network.
@@ -102,16 +105,19 @@ public class ServerB {
 					// Gestion chenillard
 					if (allume) {
 						if (!restart) {
-							pc.write(new GroupAddress("0/0/1"), true);
-							pc.write(new GroupAddress("0/0/2"), false);
-							pc.write(new GroupAddress("0/0/3"), false);
-							pc.write(new GroupAddress("0/0/4"), false);
+							pc.write(new GroupAddress("0/0/1"), pattern[index][counter][0]);
+							pc.write(new GroupAddress("0/0/2"), pattern[index][counter][1]);
+							pc.write(new GroupAddress("0/0/3"), pattern[index][counter][2]);
+							pc.write(new GroupAddress("0/0/4"), pattern[index][counter][3]);
+							counter ++;
+							if (counter == 4) counter = 0;
 							}
 						else {
-							pc.write(new GroupAddress("0/0/1"), true);
-							pc.write(new GroupAddress("0/0/2"), false);
-							pc.write(new GroupAddress("0/0/3"), false);
-							pc.write(new GroupAddress("0/0/4"), false);
+							pc.write(new GroupAddress("0/0/1"), pattern[index][0][0]);
+							pc.write(new GroupAddress("0/0/2"), pattern[index][0][0]);
+							pc.write(new GroupAddress("0/0/3"), pattern[index][0][0]);
+							pc.write(new GroupAddress("0/0/4"), pattern[index][0][0]);
+							counter = 0;
 							restart = false;
 						}
 					}else {
