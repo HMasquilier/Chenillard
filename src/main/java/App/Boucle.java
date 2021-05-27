@@ -13,7 +13,7 @@ import tuwien.auto.calimero.process.ProcessCommunicator;
 public class Boucle implements Runnable {
 	public static long vitesse;
 	public ProcessCommunicator KNXpc;
-	public static Boolean allume = true;
+	public static Boolean allume = false;
 	public static Boolean restart = false;
 	public static Boolean B1 = false;
 	public static Boolean B2 = false;
