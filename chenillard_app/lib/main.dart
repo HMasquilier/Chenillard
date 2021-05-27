@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   static Chenillard monChenillard = Chenillard(allume: false, pattern: 0, speed: 50, etat: [false, false, false, false]);
   static List<MonPattern> patterns = [
     MonPattern(
-      nom: "Droite à gauche",
+      nom: "Gauche à droite",
       etapes: [
         [true, false, false, false],
         [false, true, false, false],
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       ],
     ),
     MonPattern(
-      nom: "Gauche à droite",
+      nom: "Droite à gauche",
       etapes: [
         [false, false, false, true],
         [false, false, true, false],

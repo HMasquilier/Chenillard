@@ -34,9 +34,7 @@ public class GestionS extends HttpServlet {
 
 		Server server = new Server(8080);
 		ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
-
 		handler.setContextPath("/");
-		server.setHandler(handler);
 		
 		ServletHolder serHol = handler.addServlet(ServletContainer.class, "/rest/*");
 		FilterHolder cors = handler.addFilter(CrossOriginFilter.class,"/*",EnumSet.of(DispatcherType.REQUEST));
@@ -45,9 +43,9 @@ public class GestionS extends HttpServlet {
 		cors.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,POST,HEAD,PUT");
 		cors.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "*");
 		
-		serHol.setInitOrder(1);
 		serHol.setInitParameter("jersey.config.server.provider.packages", "res");
 
+		server.setHandler(handler);
 		try {
 			server.start();
 			server.join();
