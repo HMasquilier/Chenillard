@@ -11,7 +11,7 @@ import tuwien.auto.calimero.link.KNXLinkClosedException;
 import tuwien.auto.calimero.process.ProcessCommunicator;
 
 public class Boucle implements Runnable {
-	private long vitesse;
+	public static long vitesse;
 	public ProcessCommunicator KNXpc;
 	public static Boolean allume = true;
 	public static Boolean restart = false;

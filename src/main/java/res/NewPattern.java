@@ -5,12 +5,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("msg")
-public class MyMessage {
+import App.Boucle;
+
+@Path("newpattern")
+public class NewPattern {
 
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML})
-    public String getMessage() {
-    	return "{\"name\": \"value\"}";
+    public void getNewPattern() {
+    	Boucle.vitesse = 1000;
     }
 }
