@@ -18,13 +18,15 @@ import org.glassfish.jersey.servlet.ServletContainer;
 public class GestionS extends HttpServlet {
 	// DOGET
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-				response.setContentType("text/html");
-				response.setStatus(HttpServletResponse.SC_OK);
-			}
-	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html");
+		response.setStatus(HttpServletResponse.SC_OK);
+	}
+
 	public static void main(String[] args) throws Exception {
 		
+<<<<<<< HEAD
 //	KNX.GestionKNX();
 	
 	Server server = new Server(8080);
@@ -46,5 +48,24 @@ public class GestionS extends HttpServlet {
 	finally {
 		server.destroy();
 	}
+=======
+		//Connexion au knx et lancement du thread
+		KNX.GestionKNX();
+		
+		//Gestion du server
+		Server server = new Server(8080);
+		ServletHandler handler = new ServletHandler();
+
+		handler.addServletWithMapping(GestionS.class, "/onoff");
+		handler.addServletWithMapping(GestionS.class, "/restart");
+		handler.addServletWithMapping(GestionS.class, "/accelerer");
+		handler.addServletWithMapping(GestionS.class, "/ralentir");
+
+		server.setHandler(handler);
+
+		server.start();
+		server.join();
+
+>>>>>>> 54b19c491b9ba155215af31de2c11156c42e8159
 	}
 }
