@@ -15,6 +15,6 @@ public class ChangePattern {
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML})
     public void getChangePattern(@PathParam("index") String index) {
     	System.out.println(index);
-    	Boucle.index = Integer.parseInt(index);
+    	Boucle.patternChange(Integer.parseInt(index));
     }
 }

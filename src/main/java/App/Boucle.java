@@ -35,6 +35,7 @@ public class Boucle implements Runnable {
 		pattern.add(patternDecroissant);
 		pattern.add(patternInterExterne);
 		pattern.add(patternUnTroisDeuxQuatre);
+		System.out.println(pattern.size());
 	}
 
 	@Override
@@ -126,15 +127,21 @@ public class Boucle implements Runnable {
 		if (pattern.size() > newIndex) {
 			index = newIndex;
 			counterMax = pattern.get(index).length;
+			System.out.println("Patt  changed");
+		}
+		else {
+			System.out.println("En dehors du tableau");
 		}
 	}
 	
 	public static void newPattern (Boolean[][] nPattern) {
 		pattern.add(nPattern);
+		System.out.println("Pattern length :" + pattern.size());
 	}
 	
 	public static void supprPattern (int index) {
 		pattern.remove(index);
+		System.out.println("Pattern length :" + pattern.size());
 	}
 	
 	public static Boolean[] decode (String etape) {

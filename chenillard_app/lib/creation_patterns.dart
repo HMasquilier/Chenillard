@@ -139,6 +139,18 @@ class _CreationPatternsState extends State<CreationPatterns> {
                       MyApp.patterns.add(MonPattern(etapes: res, nom: controller.text));
                       SendData.sendData({"pattern": MyApp.patterns.length}, "/newpattern$finPath");
                       widget.update();
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: Text(
+                            "Votre pattern ${controller.text} a bien été ajouté à la liste !\nAmusez-vous avec !",
+                            textAlign: TextAlign.center,
+                          ),
+                          actions: [
+                            TextButton(onPressed: () => Navigator.pop(context), child: Text("Ok", style: TextStyle(color: Colors.green))),
+                          ],
+                        ),
+                      );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
