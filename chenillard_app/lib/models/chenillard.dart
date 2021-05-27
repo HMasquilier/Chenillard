@@ -1,4 +1,5 @@
 import 'package:chenillard_app/main.dart';
+import 'package:chenillard_app/service/send_data.dart';
 import 'package:flutter/material.dart';
 
 class Chenillard {
@@ -11,6 +12,7 @@ class Chenillard {
 
   void power() {
     this.allume = !this.allume;
+    SendData.sendData({"on": this.allume}, "/onoff");
   }
 
   void changeSpeed(double newS) {
@@ -19,10 +21,10 @@ class Chenillard {
 
   void changePattern(int numPattern) {
     this.pattern = numPattern;
+    SendData.sendData({"num_pattern": numPattern}, "/changepattern/${numPattern.toString()}");
   }
 
   int percentToMs() {
-    // print((2000 - 1500 * (this.speed / 100)).toInt());
     return (2000 - 1500 * (this.speed / 100)).toInt();
   }
 }

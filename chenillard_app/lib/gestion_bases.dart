@@ -12,7 +12,6 @@ class GestionBases extends StatefulWidget {
 }
 
 class _GestionBasesState extends State<GestionBases> {
-  SendData s = SendData();
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -42,7 +41,6 @@ class _GestionBasesState extends State<GestionBases> {
                   size: w * 0.05,
                 ),
                 onPressed: () {
-                  s.sendAllumer();
                   setState(() {
                     MyApp.monChenillard.power();
                     if (MyApp.monChenillard.allume) {
@@ -94,9 +92,13 @@ class _GestionBasesState extends State<GestionBases> {
                             ? Colors.orange
                             : Colors.red,
                 onChanged: (value) {
+                  print(value);
                   setState(() {
                     MyApp.monChenillard.changeSpeed(value);
                   });
+                },
+                onChangeEnd: (value) {
+                  SendData.sendData({"speed": MyApp.monChenillard.percentToMs()}, "/vitesse/${MyApp.monChenillard.percentToMs().toString()}");
                 },
               ),
               Text(MyApp.monChenillard.speed.toStringAsFixed(1) + "%"),
