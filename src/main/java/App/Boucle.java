@@ -1,5 +1,8 @@
 package App;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tuwien.auto.calimero.GroupAddress;
 import tuwien.auto.calimero.KNXException;
 import tuwien.auto.calimero.KNXFormatException;
@@ -8,7 +11,7 @@ import tuwien.auto.calimero.link.KNXLinkClosedException;
 import tuwien.auto.calimero.process.ProcessCommunicator;
 
 public class Boucle implements Runnable {
-	private long vitesse;
+	public static long vitesse;
 	public ProcessCommunicator KNXpc;
 	public static Boolean allume = true;
 	public static Boolean restart = false;
@@ -19,13 +22,19 @@ public class Boucle implements Runnable {
 	public static int index = 0;
 	public static Boolean[][] patternCroissant = {{true,false,false,false},{false,true,false,false},{false,false,true,false},{false,false,false,true}};
 	public static Boolean[][] patternDecroissant = {{false,false,false,true},{false,false,true,false},{false,true,false,false},{true,false,false,false}};
-	public static Boolean[][][] pattern = {patternCroissant,patternDecroissant};
+	public static Boolean[][] patternInterExterne = {{false,true,true,false},{true,false,false,true}};
+	public static Boolean[][] patternUnTroisDeuxQuatre = {{true,false,false,false},{false,false,true,false},{false,true,false,false},{false,false,false,true}};
+	public static ArrayList<Boolean[][]> pattern = new ArrayList<Boolean[][]> ();
 	public static int counterMax = 4;
 	public static int counter = 0;
 
 	public Boucle(long time, ProcessCommunicator pc){
 		vitesse = time;
 		KNXpc = pc;
+		pattern.add(patternCroissant);
+		pattern.add(patternDecroissant);
+		pattern.add(patternInterExterne);
+		pattern.add(patternUnTroisDeuxQuatre);
 	}
 
 	@Override
@@ -56,18 +65,18 @@ public class Boucle implements Runnable {
 		// Gestion chenillard
 		if (allume) {
 			if (!restart) {
-				KNXpc.write(new GroupAddress("0/0/1"), pattern[index][counter][0]);
-				KNXpc.write(new GroupAddress("0/0/2"), pattern[index][counter][1]);
-				KNXpc.write(new GroupAddress("0/0/3"), pattern[index][counter][2]);
-				KNXpc.write(new GroupAddress("0/0/4"), pattern[index][counter][3]);
+				KNXpc.write(new GroupAddress("0/0/1"), pattern.get(index)[counter][0]);
+				KNXpc.write(new GroupAddress("0/0/2"), pattern.get(index)[counter][1]);
+				KNXpc.write(new GroupAddress("0/0/3"), pattern.get(index)[counter][2]);
+				KNXpc.write(new GroupAddress("0/0/4"), pattern.get(index)[counter][3]);
 				counter++;
 				if (counter == counterMax)
 					counter = 0;
 			} else {
-				KNXpc.write(new GroupAddress("0/0/1"), pattern[index][0][0]);
-				KNXpc.write(new GroupAddress("0/0/2"), pattern[index][0][0]);
-				KNXpc.write(new GroupAddress("0/0/3"), pattern[index][0][0]);
-				KNXpc.write(new GroupAddress("0/0/4"), pattern[index][0][0]);
+				KNXpc.write(new GroupAddress("0/0/1"), pattern.get(index)[0][0]);
+				KNXpc.write(new GroupAddress("0/0/2"), pattern.get(index)[0][0]);
+				KNXpc.write(new GroupAddress("0/0/3"), pattern.get(index)[0][0]);
+				KNXpc.write(new GroupAddress("0/0/4"), pattern.get(index)[0][0]);
 				counter = 0;
 				restart = false;
 			}
@@ -114,10 +123,14 @@ public class Boucle implements Runnable {
 	}
 
 	public static void patternChange (int newIndex) {
-		if (pattern.length >= newIndex+1) {
+		if (pattern.size() > newIndex) {
 			index = newIndex;
-			counterMax = pattern[index].length;
+			counterMax = pattern.get(index).length;
 		}
+	}
+	
+	public static void newPattern (Boolean[][] nPattern) {
+		pattern.add(nPattern);
 	}
 	
 	public void cancel() {

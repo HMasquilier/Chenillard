@@ -5,12 +5,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("msg")
-public class MyMessage {
+import App.Boucle;
+
+@Path("restart")
+public class Restart {
 
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML})
-    public String getMessage() {
-    	return "{\"name\": \"value\"}";
+    public void getRestart() {
+    	Boucle.restart = true;
     }
 }
