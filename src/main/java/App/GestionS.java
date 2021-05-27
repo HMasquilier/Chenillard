@@ -25,47 +25,26 @@ public class GestionS extends HttpServlet {
 	}
 
 	public static void main(String[] args) throws Exception {
-		
-<<<<<<< HEAD
-//	KNX.GestionKNX();
-	
-	Server server = new Server(8080);
-	ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
-	
-	handler.setContextPath("/");
-	server.setHandler(handler);
-	
-	ServletHolder serHol = handler.addServlet(ServletContainer.class, "/rest/*");
-	serHol.setInitOrder(1);
-	serHol.setInitParameter("jersey.config.server.provider.packages", "res");
-	
-	try {
-		server.start();
-		server.join();
-	} catch (Exception e) {
-		System.out.println(e);
-	}
-	finally {
-		server.destroy();
-	}
-=======
-		//Connexion au knx et lancement du thread
+
 		KNX.GestionKNX();
-		
-		//Gestion du server
+
 		Server server = new Server(8080);
-		ServletHandler handler = new ServletHandler();
+		ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
 
-		handler.addServletWithMapping(GestionS.class, "/onoff");
-		handler.addServletWithMapping(GestionS.class, "/restart");
-		handler.addServletWithMapping(GestionS.class, "/accelerer");
-		handler.addServletWithMapping(GestionS.class, "/ralentir");
-
+		handler.setContextPath("/");
 		server.setHandler(handler);
 
-		server.start();
-		server.join();
+		ServletHolder serHol = handler.addServlet(ServletContainer.class, "/rest/*");
+		serHol.setInitOrder(1);
+		serHol.setInitParameter("jersey.config.server.provider.packages", "res");
 
->>>>>>> 54b19c491b9ba155215af31de2c11156c42e8159
+		try {
+			server.start();
+			server.join();
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			server.destroy();
+		}
 	}
 }
