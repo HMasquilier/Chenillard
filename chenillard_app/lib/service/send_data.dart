@@ -20,7 +20,7 @@ class SendData {
     try {
       final response = await http.post(Uri.parse(url + path),
         headers: <String, String>{
-          'Access-Control-Allow-Origin' : '*',
+          //'Access-Control-Allow-Origin' : '*',
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: msg);

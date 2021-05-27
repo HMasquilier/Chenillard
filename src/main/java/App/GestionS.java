@@ -32,7 +32,7 @@ public class GestionS extends HttpServlet {
 
 		KNX.GestionKNX();
 
-		Server server = new Server(8082);
+		Server server = new Server(8080);
 		ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
 
 		handler.setContextPath("/");
