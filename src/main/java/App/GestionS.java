@@ -1,19 +1,23 @@
 package App;
 
 import java.io.IOException;
-import java.util.logging.Level;
+import java.util.EnumSet;
 
+import javax.servlet.DispatcherType;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.glassfish.hk2.utilities.reflection.Logger;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
+
+
+
 
 public class GestionS extends HttpServlet {
 	// DOGET
@@ -28,13 +32,19 @@ public class GestionS extends HttpServlet {
 
 		KNX.GestionKNX();
 
-		Server server = new Server(8080);
+		Server server = new Server(8082);
 		ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
 
 		handler.setContextPath("/");
 		server.setHandler(handler);
-
+		
 		ServletHolder serHol = handler.addServlet(ServletContainer.class, "/rest/*");
+		FilterHolder cors = handler.addFilter(CrossOriginFilter.class,"/*",EnumSet.of(DispatcherType.REQUEST));
+		cors.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");
+		cors.setInitParameter(CrossOriginFilter.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*");
+		cors.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,POST,HEAD,PUT");
+		cors.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "*");
+		
 		serHol.setInitOrder(1);
 		serHol.setInitParameter("jersey.config.server.provider.packages", "res");
 

@@ -12,6 +12,7 @@ class GestionBases extends StatefulWidget {
 }
 
 class _GestionBasesState extends State<GestionBases> {
+  SendData s = SendData();
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -41,7 +42,7 @@ class _GestionBasesState extends State<GestionBases> {
                   size: w * 0.05,
                 ),
                 onPressed: () {
-                  SendData.sendAllumer();
+                  s.sendAllumer();
                   setState(() {
                     MyApp.monChenillard.power();
                     if (MyApp.monChenillard.allume) {

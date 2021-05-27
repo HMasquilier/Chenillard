@@ -54,17 +54,18 @@ public class KNX {
 				knxLink = KNXNetworkLinkIP.newTunnelingLink(local, serverKNX, false, new TPSettings());
 				System.out.println("Connection established to server " + knxLink.getName());
 				
+				ProcessCommunicator pc = new ProcessCommunicatorImpl(knxLink);
+				
 				// Listener
 				Listener lis = new Listener();
 				knxLink.addLinkListener(lis);
 
-				ProcessCommunicator pc = new ProcessCommunicatorImpl(knxLink);
 				
 				Thread t = new Thread(new Boucle(minimumDelay,pc));
 				t.start();
-				
-				pc.close();
-				knxLink.close();
+				 
+				//pc.close();
+				//knxLink.close();
 
 			}catch(KNXException|
 

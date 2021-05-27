@@ -9,7 +9,7 @@ import tuwien.auto.calimero.process.ProcessCommunicator;
 
 public class Boucle implements Runnable {
 	private long vitesse;
-	private ProcessCommunicator pc;
+	public ProcessCommunicator KNXpc;
 	public static Boolean allume = true;
 	public static Boolean restart = false;
 	public static Boolean B1 = false;
@@ -23,19 +23,19 @@ public class Boucle implements Runnable {
 	public static int counterMax = 4;
 	public static int counter = 0;
 
-	public Boucle(long time, ProcessCommunicator pc) {
+	public Boucle(long time, ProcessCommunicator pc){
 		vitesse = time;
-		pc = this.pc;
+		KNXpc = pc;
 	}
 
 	@Override
 	public void run() {
 		try {
-			Boolean LED1 = pc.readBool(new GroupAddress("0/1/1"));
-			Boolean LED2 = pc.readBool(new GroupAddress("0/1/2"));
-			Boolean LED3 = pc.readBool(new GroupAddress("0/1/3"));
-			Boolean LED4 = pc.readBool(new GroupAddress("0/1/4"));
 			while (!Thread.currentThread().isInterrupted()) {
+				Boolean LED1 = KNXpc.readBool(new GroupAddress("0/1/1"));
+				Boolean LED2 = KNXpc.readBool(new GroupAddress("0/1/2"));
+				Boolean LED3 = KNXpc.readBool(new GroupAddress("0/1/3"));
+				Boolean LED4 = KNXpc.readBool(new GroupAddress("0/1/4"));
 				boucleKNX();
 				boutonsMaquette();
 				Thread.sleep(vitesse);
@@ -56,26 +56,26 @@ public class Boucle implements Runnable {
 		// Gestion chenillard
 		if (allume) {
 			if (!restart) {
-				pc.write(new GroupAddress("0/0/1"), pattern[index][counter][0]);
-				pc.write(new GroupAddress("0/0/2"), pattern[index][counter][1]);
-				pc.write(new GroupAddress("0/0/3"), pattern[index][counter][2]);
-				pc.write(new GroupAddress("0/0/4"), pattern[index][counter][3]);
+				KNXpc.write(new GroupAddress("0/0/1"), pattern[index][counter][0]);
+				KNXpc.write(new GroupAddress("0/0/2"), pattern[index][counter][1]);
+				KNXpc.write(new GroupAddress("0/0/3"), pattern[index][counter][2]);
+				KNXpc.write(new GroupAddress("0/0/4"), pattern[index][counter][3]);
 				counter++;
 				if (counter == counterMax)
 					counter = 0;
 			} else {
-				pc.write(new GroupAddress("0/0/1"), pattern[index][0][0]);
-				pc.write(new GroupAddress("0/0/2"), pattern[index][0][0]);
-				pc.write(new GroupAddress("0/0/3"), pattern[index][0][0]);
-				pc.write(new GroupAddress("0/0/4"), pattern[index][0][0]);
+				KNXpc.write(new GroupAddress("0/0/1"), pattern[index][0][0]);
+				KNXpc.write(new GroupAddress("0/0/2"), pattern[index][0][0]);
+				KNXpc.write(new GroupAddress("0/0/3"), pattern[index][0][0]);
+				KNXpc.write(new GroupAddress("0/0/4"), pattern[index][0][0]);
 				counter = 0;
 				restart = false;
 			}
 		} else {
-			pc.write(new GroupAddress("0/0/1"), false);
-			pc.write(new GroupAddress("0/0/2"), false);
-			pc.write(new GroupAddress("0/0/3"), false);
-			pc.write(new GroupAddress("0/0/4"), false);
+			KNXpc.write(new GroupAddress("0/0/1"), false);
+			KNXpc.write(new GroupAddress("0/0/2"), false);
+			KNXpc.write(new GroupAddress("0/0/3"), false);
+			KNXpc.write(new GroupAddress("0/0/4"), false);
 		}
 	}
 
