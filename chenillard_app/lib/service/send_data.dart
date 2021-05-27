@@ -10,7 +10,7 @@ class SendData {
     await http.put(Uri.parse(url + path), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     }, body: {
-      "title": "test"
+      "title": "test",
     });
   }
 }

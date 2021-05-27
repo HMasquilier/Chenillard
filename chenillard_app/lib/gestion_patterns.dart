@@ -15,6 +15,17 @@ class _GestionPatternsState extends State<GestionPatterns> {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     bool web = w > h;
+
+    List<Widget> buildListPatterns() {
+      double w = MediaQuery.of(context).size.width;
+      List<Widget> res = [SizedBox(width: w * 0.01)];
+      for (int i = 0; i < MyApp.patterns.length; i++) {
+        res.add(AffichagePattern(indexPattern: i, update: update));
+      }
+      res.add(SizedBox(width: w * 0.01));
+      return res;
+    }
+
     return Container(
       width: w,
       child: Center(
@@ -23,7 +34,7 @@ class _GestionPatternsState extends State<GestionPatterns> {
           child: Wrap(
             spacing: w * 0.03,
             runSpacing: w * 0.03,
-            children: List.generate(MyApp.patterns.length, (index) => AffichagePattern(indexPattern: index, update: update)),
+            children: buildListPatterns(),
           ),
         ),
       ),
