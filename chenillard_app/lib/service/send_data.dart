@@ -13,11 +13,7 @@ class SendData {
       final response = await http.post(
         Uri.parse(url + longPath),
         headers: <String, String>{
-<<<<<<< HEAD
           'Access-Control-Allow-Origin' : '*',
-=======
-          'Access-Control-Allow-Origin': '*',
->>>>>>> branch 'master' of https://github.com/HMasquilier/Chenillard.git
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(msg),

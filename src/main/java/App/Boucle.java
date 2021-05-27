@@ -133,6 +133,16 @@ public class Boucle implements Runnable {
 		pattern.add(nPattern);
 	}
 	
+	public static void supprPattern (int index) {
+		pattern.remove(index);
+	}
+	
+	public static Boolean[] decode (String etape) {
+		char[] tab = etape.toCharArray();
+		Boolean[] res = {tab[0]=='T',tab[1]=='T',tab[2]=='T',tab[3]=='T'};
+		return res;
+	}
+	
 	public void cancel() {
 
 		// interruption du thread courant, c'est-à-dire le nôtre
