@@ -1,4 +1,5 @@
 import 'package:chenillard_app/main.dart';
+import 'package:chenillard_app/service/send_data.dart';
 import 'package:flutter/material.dart';
 
 class MonPattern {
@@ -103,6 +104,7 @@ class _AffichagePatternState extends State<AffichagePattern> {
                         }).then((value) {
                       if (value) {
                         MyApp.patterns.removeAt(widget.indexPattern);
+                        SendData.sendData({"numPattern": widget.indexPattern}, "/deletepattern/${widget.indexPattern.toString()}");
                         widget.update();
                       }
                     });

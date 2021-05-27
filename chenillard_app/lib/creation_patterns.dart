@@ -1,5 +1,6 @@
 import 'package:chenillard_app/main.dart';
 import 'package:chenillard_app/models/mon_pattern.dart';
+import 'package:chenillard_app/service/send_data.dart';
 import 'package:flutter/material.dart';
 
 class CreationPatterns extends StatefulWidget {
@@ -126,10 +127,17 @@ class _CreationPatternsState extends State<CreationPatterns> {
                   setState(() {
                     if (controller.text != null && controller.text != "") {
                       List<List<bool>> res = [];
+                      String finPath = "";
                       for (int i = 0; i < stepNumber; i++) {
                         res.add(etapes[i].toList());
+                        for (int j = 0; j < etapes[i].length; j++) {
+                          if (j == 0) finPath += "/";
+                          finPath += etapes[i][j] ? "T" : "F";
+                        }
                       }
+                      print(finPath);
                       MyApp.patterns.add(MonPattern(etapes: res, nom: controller.text));
+                      SendData.sendData({"pattern": MyApp.patterns.length}, "/newpattern$finPath");
                       widget.update();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
