@@ -13,7 +13,11 @@ class SendData {
       final response = await http.post(
         Uri.parse(url + longPath),
         headers: <String, String>{
+<<<<<<< HEAD
           'Access-Control-Allow-Origin': '*',
+=======
+          'Access-Control-Allow-Origin' : '*',
+>>>>>>> 08d00a4e26929776905c3ae14e816cdc342985c4
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(msg),

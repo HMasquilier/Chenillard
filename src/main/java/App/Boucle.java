@@ -13,7 +13,7 @@ import tuwien.auto.calimero.process.ProcessCommunicator;
 public class Boucle implements Runnable {
 	public static long vitesse;
 	public ProcessCommunicator KNXpc;
-	public static Boolean allume = true;
+	public static Boolean allume = false;
 	public static Boolean restart = false;
 	public static Boolean B1 = false;
 	public static Boolean B2 = false;
@@ -131,6 +131,16 @@ public class Boucle implements Runnable {
 	
 	public static void newPattern (Boolean[][] nPattern) {
 		pattern.add(nPattern);
+	}
+	
+	public static void supprPattern (int index) {
+		pattern.remove(index);
+	}
+	
+	public static Boolean[] decode (String etape) {
+		char[] tab = etape.toCharArray();
+		Boolean[] res = {tab[0]=='T',tab[1]=='T',tab[2]=='T',tab[3]=='T'};
+		return res;
 	}
 	
 	public void cancel() {
