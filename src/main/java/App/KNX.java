@@ -22,24 +22,11 @@ import tuwien.auto.calimero.process.ProcessCommunicatorImpl;
 
 public class KNX {
 	// Données
-	public static Boolean allume = true;
-	public static Boolean restart = false;
-	public static Boolean B1 = false;
-	public static Boolean B2 = false;
-	public static Boolean B3 = false;
-	public static Boolean B4 = false;
-	public static long vitesse = 1000;
-	private static long minimumDelay = 500;
-	public static int index = 0;
-	public static Boolean[][] patternCroissant = {{true,false,false,false},{false,true,false,false},{false,false,true,false},{false,false,false,true}};
-	public static Boolean[][] patternDecroissant = {{false,false,false,true},{false,false,true,false},{false,true,false,false},{true,false,false,false}};
-	public static Boolean[][][] pattern = {patternCroissant,patternDecroissant};
-	public static int counterMax = 4;
-	public static int counter = 0;
 
-
+	public static int test =1;
 		// DONNEES KNX
 		public static String servAdr = "192.168.1.201";
+		private static long minimumDelay = 1000;
 		/**
 		 * Local endpoint, The local socket address is important for multi-homed clients
 		 * (several network interfaces), or if the default route is not useful.
@@ -66,52 +53,16 @@ public class KNX {
 			try {
 				knxLink = KNXNetworkLinkIP.newTunnelingLink(local, serverKNX, false, new TPSettings());
 				System.out.println("Connection established to server " + knxLink.getName());
-
-				Thread t = new Thread(new Boucle(minimumDelay));
-				t.start();
-
+				
 				// Listener
 				Listener lis = new Listener();
 				knxLink.addLinkListener(lis);
 
-				// Allumer/éteindre
 				ProcessCommunicator pc = new ProcessCommunicatorImpl(knxLink);
-
-				while (!t.isInterrupted()) {
-					Boolean LED1 = pc.readBool(new GroupAddress("0/1/1"));
-					Boolean LED2 = pc.readBool(new GroupAddress("0/1/2"));
-					Boolean LED3 = pc.readBool(new GroupAddress("0/1/3"));
-					Boolean LED4 = pc.readBool(new GroupAddress("0/1/4"));
-
-					// Gestion chenillard
-					if (allume) {
-						if (!restart) {
-							pc.write(new GroupAddress("0/0/1"), pattern[index][counter][0]);
-							pc.write(new GroupAddress("0/0/2"), pattern[index][counter][1]);
-							pc.write(new GroupAddress("0/0/3"), pattern[index][counter][2]);
-							pc.write(new GroupAddress("0/0/4"), pattern[index][counter][3]);
-							counter ++;
-							if (counter == counterMax) counter = 0;
-							}
-						else {
-							pc.write(new GroupAddress("0/0/1"), pattern[index][0][0]);
-							pc.write(new GroupAddress("0/0/2"), pattern[index][0][0]);
-							pc.write(new GroupAddress("0/0/3"), pattern[index][0][0]);
-							pc.write(new GroupAddress("0/0/4"), pattern[index][0][0]);
-							counter = 0;
-							restart = false;
-						}
-					}else {
-						pc.write(new GroupAddress("0/0/1"), false);
-						pc.write(new GroupAddress("0/0/2"), false);
-						pc.write(new GroupAddress("0/0/3"), false);
-						pc.write(new GroupAddress("0/0/4"), false);
-					}
-
-					TimeUnit.MILLISECONDS.sleep(vitesse);
-
-				}
-
+				
+				Thread t = new Thread(new Boucle(minimumDelay,pc));
+				t.start();
+				
 				pc.close();
 				knxLink.close();
 
@@ -129,18 +80,11 @@ public class KNX {
 			// resources accordingly.
 			// Any deviation of such behavior, e.g., where not feasible, is documented in
 			// the Calimero API.
-
+			
 			System.out.println("Error creating KNXnet/IP tunneling link: " + e);
-
 		}
 	}
 
 
-	public static void patternChange (int newIndex) {
-		if (pattern.length >= newIndex+1) {
-			index = newIndex;
-			counterMax = pattern[index].length;
-		}
-	}
 
 }
