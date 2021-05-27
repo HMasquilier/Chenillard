@@ -9,60 +9,60 @@ class SendData {
     String url = "http://localhost:8080";
     String path = "/rest/msg";
     final msg = jsonEncode({"title": "test"});
-
-    // await http.put(Uri.parse(url + path),
-    //     headers: <String, String>{
-    //       'Content-Type': 'application/json; charset=UTF-8',
-    //     },
-    //     body: msg);
-
-    var responseJson;
+    
     try {
-      final response = await http.post(Uri.parse(url + path),
+      final response = await http.post(
+        Uri.parse(url + path),
         headers: <String, String>{
+<<<<<<< HEAD
           'Access-Control-Allow-Origin' : '*',
+=======
+          'Access-Control-Allow-Origin': '*',
+>>>>>>> branch 'master' of https://github.com/HMasquilier/Chenillard.git
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: msg);
-      responseJson = _response(response);
-    } on SocketException {
-      throw FetchDataException('No Internet connection');
+        body: msg,
+      );
+      Map responseJson = json.decode(response.body);
+      print(responseJson);
+      print(responseJson['name']);
+      // responseJson = _response(response);
+      // print(responseJson);
+    } catch (e) {
+      print(e);
     }
-    return responseJson;
   }
 
-  dynamic _response(http.Response response) {
-    switch (response.statusCode) {
-      case 200:
-        var responseJson = json.decode(response.body.toString());
-        return responseJson;
-      case 400:
-        throw BadRequestException(response.body.toString());
-      case 401:
-      case 403:
-        throw UnauthorisedException(response.body.toString());
-      case 500:
-      default:
-        throw FetchDataException(
-            'Error occured while Communication with Server with StatusCode: ${response.statusCode}');
-    }
-  }
+  // dynamic _response(http.Response response) {
+  //   switch (response.statusCode) {
+  //     case 200:
+  //       var responseJson = json.decode(response.body.toString());
+  //       return responseJson;
+  //     case 400:
+  //       throw BadRequestException(response.body.toString());
+  //     case 401:
+  //     case 403:
+  //       throw UnauthorisedException(response.body.toString());
+  //     case 500:
+  //     default:
+  //       throw FetchDataException('Error occured while Communication with Server with StatusCode: ${response.statusCode}');
+  //   }
+  // }
 }
 
-class CustomException implements Exception {
+/*class CustomException implements Exception {
   final _message;
   final _prefix;
 
   CustomException([this._message, this._prefix]);
 
   String toString() {
-  return "$_prefix$_message";
+    return "$_prefix$_message";
   }
 }
 
 class FetchDataException extends CustomException {
-  FetchDataException([String message])
-  : super(message, "Error During Communication: ");
+  FetchDataException([String message]) : super(message, "Error During Communication: ");
 }
 
 class BadRequestException extends CustomException {
@@ -76,3 +76,4 @@ class UnauthorisedException extends CustomException {
 class InvalidInputException extends CustomException {
   InvalidInputException([String message]) : super(message, "Invalid Input: ");
 }
+*/
